@@ -95,7 +95,7 @@
                                                                 <option value="">Select One</option>
                                                                 @foreach ($countries as $country)
                                                                     <option value="{{ $country->id }}" aria-url="{{ route('api.general.country.states', $country->id) }}"
-                                                                        {{ ($query['country'] ?? '') == $country->id ? 'selected' : '' }}>{{ $country->name }}
+                                                                        {{ $gig->country_id == $country->id ? 'selected' : '' }}>{{ $country->name }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -105,6 +105,9 @@
                                                             <label for=""></label>
                                                             <select name="state_id" id="state_id" class="form-control" required>
                                                                 <option value="" disabled selected>State/Region</option>
+                                                                @foreach ($states as $state)
+                                                                    <option value="{{ $state->id }}" {{ $gig->state_id == $state->id ? 'selected' : ''}}>{{ $state->name }}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
 
