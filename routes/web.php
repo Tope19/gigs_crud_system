@@ -19,7 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/logout','HomeController@logout');
+
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::prefix('admin')->as('admin.')->group(function(){
     Route::resource('companies', 'CompanyController');
+    Route::resource('gigs', 'GigsController');
 });

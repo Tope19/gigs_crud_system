@@ -13,9 +13,20 @@ class GigsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $gigRepository;
+
+    public function __construct(GigRepository $gigRepository){
+        $this->gigRepository = $gigRepository;
+    }
+
     public function index()
     {
-        //
+        $gigs = $this->gigRepository->all();
+        $companies = $this->gigRepository->companyGet();
+        $countries = $this->gigRepository->countryGet();
+        $states = $this->gigRepository->stateGet();
+        return view('dashboard.gigs.index', compact('gigs','companies','countries','states'));
     }
 
     /**
@@ -36,7 +47,25 @@ class GigsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->gigRepository->store($this->validateData($request));
+        toastr()->success('Gig added successfully!');
+        return redirect()->back();
+    }
+
+    private function validateData(Request $request , $mode = 'required'){
+        $data = $request->validate([
+            'company_id' => 'required',
+            'country_id' => 'required',
+            'role' => 'required|string',
+            'state_id' => 'required',
+            'address' => 'required|string',
+            'employment_type' => 'required',
+            'min_wage' => 'required',
+            'max_wage' => 'required',
+
+        ]);
+
+        return $data;
     }
 
     /**
@@ -56,9 +85,10 @@ class GigsController extends Controller
      * @param  \App\Models\Gigs  $gigs
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gigs $gigs)
+    public function edit($id)
     {
-        //
+        $gig = $this->gigRepository->edit($id);
+        return view('dashboard.gigs.index',compact('gig'));
     }
 
     /**
@@ -68,9 +98,11 @@ class GigsController extends Controller
      * @param  \App\Models\Gigs  $gigs
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gigs $gigs)
+    public function update(Request $request, $id)
     {
-        //
+        $this->gigRepository->update($id, $this->validateData($request, 'nullable'));
+        toastr()->success('Gig Updated successfully!');
+        return redirect()->back();
     }
 
     /**
@@ -79,8 +111,10 @@ class GigsController extends Controller
      * @param  \App\Models\Gigs  $gigs
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gigs $gigs)
+    public function destroy($id)
     {
-        //
+        $this->gigRepository->delete($id);
+        toastr()->success('Gig deleted successfully!');
+        return redirect()->back();
     }
 }

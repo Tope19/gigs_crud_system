@@ -22,7 +22,7 @@
                         <div class="mini-stat-icon">
                             <i class="mdi mdi-cube-outline float-right mb-0"></i>
                         </div>
-                        <h6 class="text-uppercase mb-0">New Orders</h6>
+                        <h6 class="text-uppercase mb-0">New Gigs</h6>
                     </div>
                     <div class="card-body">
                         <div class="border-bottom pb-4">
@@ -44,7 +44,7 @@
                         <div class="mini-stat-icon">
                             <i class="mdi mdi-account-network float-right mb-0"></i>
                         </div>
-                        <h6 class="text-uppercase mb-0">New Users</h6>
+                        <h6 class="text-uppercase mb-0">New Companies</h6>
                     </div>
                     <div class="card-body">
                         <div class="border-bottom pb-4">
@@ -66,7 +66,7 @@
                         <div class="mini-stat-icon">
                             <i class="mdi mdi-tag-text-outline float-right mb-0"></i>
                         </div>
-                        <h6 class="text-uppercase mb-0">Average Price</h6>
+                        <h6 class="text-uppercase mb-0">Average Wages</h6>
                     </div>
                     <div class="card-body">
                         <div class="border-bottom pb-4">
@@ -88,7 +88,7 @@
                         <div class="mini-stat-icon">
                             <i class="mdi mdi-cart-outline float-right mb-0"></i>
                         </div>
-                        <h6 class="text-uppercase mb-0">Total Sales</h6>
+                        <h6 class="text-uppercase mb-0">Total Wages</h6>
                     </div>
                     <div class="card-body">
                         <div class="border-bottom pb-4">

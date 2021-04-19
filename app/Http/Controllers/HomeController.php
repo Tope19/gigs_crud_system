@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 
 class HomeController extends Controller
 {
@@ -25,5 +26,9 @@ class HomeController extends Controller
     {
         return view('dashboard.home');
     }
+
+    public function logout(){
+        Session::flush();
+        return redirect()->route('login');
+    }
 }
-    

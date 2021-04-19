@@ -16,8 +16,9 @@ class CreateGigsTable extends Migration
         Schema::create('gigs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('company_id');
-            $table->string('country');
-            $table->string('state');
+            $table->string('role');
+            $table->bigInteger('country_id');
+            $table->bigInteger('state_id');
             $table->text('address');
             $table->text('employment_type');
             $table->double('min_wage');

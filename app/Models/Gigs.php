@@ -10,8 +10,9 @@ class Gigs extends Model
 
     protected $fillable = [
         'company_id',
-        'country',
-        'state',
+        'role',
+        'country_id',
+        'state_id',
         'address',
         'employment_type',
         'min_wage',
@@ -20,5 +21,13 @@ class Gigs extends Model
 
     public function company(){
         return $this->belongsTo(Company::class);
+    }
+
+    public function country(){
+        return $this->belongsTo(Country::class);
+    }
+
+    public function state(){
+        return $this->belongsTo(State::class);
     }
 }

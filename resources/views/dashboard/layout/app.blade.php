@@ -30,6 +30,12 @@
         <link href="{{ $admin_source }}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href="{{ $admin_source }}/assets/css/icons.css" rel="stylesheet" type="text/css">
         <link href="{{ $admin_source }}/assets/css/style.css" rel="stylesheet" type="text/css">
+
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
         @toastr_css
 
     </head>
@@ -62,7 +68,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="waves-effect"><i class="dripicons-user-group"></i> <span> Gigs </span> </span></a>
+                                <a href="{{ route('admin.gigs.index') }}" class="waves-effect"><i class="dripicons-user-group"></i> <span> Gigs </span> </span></a>
 
                             </li>
 
@@ -103,6 +109,60 @@
                         <nav class="navbar-custom">
 
                             <ul class="list-inline float-right mb-0">
+                                <li class="list-inline-item notification-list dropdown d-none d-sm-inline-block">
+                                    <form role="search" class="app-search">
+                                        <div class="form-group mb-0">
+                                            <input type="text" class="form-control" placeholder="Search..">
+                                            <button type="submit"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </form>
+                                </li>
+                                <li class="list-inline-item dropdown notification-list">
+                                    <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
+                                       aria-haspopup="false" aria-expanded="false">
+                                        <i class="mdi mdi-email-outline noti-icon"></i>
+                                        <span class="badge badge-danger badge-pill noti-icon-badge">5</span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-menu-lg">
+                                        <!-- item-->
+                                        <div class="dropdown-item noti-title">
+                                            <span class="badge badge-danger float-right">367</span>
+                                            <h5>Messages</h5>
+                                        </div>
+                                        
+
+
+                                        <!-- All-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-all">
+                                            View All
+                                        </a>
+
+                                    </div>
+                                </li>
+
+                                <li class="list-inline-item dropdown notification-list">
+                                    <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
+                                       aria-haspopup="false" aria-expanded="false">
+                                        <i class="mdi mdi-bell-outline noti-icon"></i>
+                                        <span class="badge badge-success badge-pill noti-icon-badge">3</span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated dropdown-menu-lg">
+                                        <!-- item-->
+                                        <div class="dropdown-item noti-title">
+                                            <span class="badge badge-danger float-right">84</span>
+                                            <h5>Notification</h5>
+                                        </div>
+
+
+
+                                        <!-- All-->
+                                        <a href="javascript:void(0);" class="dropdown-item notify-all">
+                                            View All
+                                        </a>
+
+                                    </div>
+                                </li>
+
                                 <li class="list-inline-item dropdown notification-list">
                                     <a class="nav-link dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button"
                                        aria-haspopup="false" aria-expanded="false">
@@ -110,9 +170,7 @@
                                         <b style="color: black">{{ Auth::user()->name }} </b>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown ">
-                                        <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5 text-muted"></i> Profile</a>
-                                        <a class="dropdown-item" href="#"><span class="badge badge-success mt-1 float-right">5</span><i class="mdi mdi-settings m-r-5 text-muted"></i> Settings</a>
-                                        <a class="dropdown-item" href="#"><i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"><i class="mdi mdi-logout m-r-5 text-muted"></i> Logout</a>
                                     </div>
                                 </li>
 
@@ -219,6 +277,78 @@
 
         <!-- App js -->
         <script src="{{ $admin_source }}/assets/js/app.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+        </script>
+
+        <script>
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": '{{ csrf_token() }}',
+                },
+            });
+
+            $('#country_id').change(function(){
+                var url = $(this).find('option:selected').attr('aria-url');
+                let state_list = [];
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+
+                        state_list = [];
+                        jQuery.each(data , function(index){
+                            let state = data[index];
+                            state_list.push('<option value="'+ state.id +'">'+ state.name +'</option>');
+                        });
+                        $('#state_id').html(state_list)
+
+                    }
+
+                });
+            })
+        </script>
+
+        <script>
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": '{{ csrf_token() }}',
+                },
+            });
+
+            $('#country_id_add').change(function(){
+                var url = $(this).find('option:selected').attr('aria-url');
+                let state_list_add = [];
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+
+                        state_list_add = [];
+                        jQuery.each(data , function(index){
+                            let state_add = data[index];
+                            state_list_add.push('<option value="'+ state_add.id +'">'+ state_add.name +'</option>');
+                        });
+                        $('#state_id_add').html(state_list_add)
+
+                    }
+
+                });
+            })
+        </script>
         @toastr_js
 
     </body>
